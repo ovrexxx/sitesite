@@ -3,17 +3,62 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Website</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Random Letter Generator</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+            outline: none;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        #letters {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
-<body style="background-color: black;">
-    <div class="content">
-        <h1>Welcome to the Custom Website!</h1>
-    </div>
+<body>
+    <h1>Generate your key below</h1>
+    <button onclick="generateRandomLetters()" id="generateButton">Generate</button>
+    <div id="letters"></div>
 
-    <script src="script.js"></script>
+    <script>
+        let generated = false;
+
+        function generateRandomLetters() {
+            if (!generated) {
+                const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                const randomLetters = Array.from({ length: 10 }, () =>
+                    letters.charAt(Math.floor(Math.random() * letters.length))
+                ).join(' ');
+                
+                const lettersDiv = document.getElementById('letters');
+                lettersDiv.innerText = randomLetters;
+
+                document.getElementById('generateButton').disabled = true;
+                generated = true;
+            }
+        }
+    </script>
 </body>
 
 </html>
