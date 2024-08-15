@@ -1,0 +1,13 @@
+body {
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+.content {
+    text-align: center;
+    margin-top: 20%;
+}
+
+p {
+    font-size: 20px;
+}
