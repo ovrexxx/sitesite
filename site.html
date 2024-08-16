@@ -1,49 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Key System Website</title>
-  <style>
-    body {
-      background-color: black;
-      color: white;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 20px;
-    }
-    button {
-      padding: 10px 20px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-  </style>
+    <title>Key Generator</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding-top: 50px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-  <h1>Key System Website</h1>
-  <p>Click the button below to generate a 10-letter random key for Discord:</p>
-  <p id="generatedKey"></p>
-  <button id="generateButton">Generate Key</button>
+    <h1>Key Generator</h1>
+    <button id="generateBtn" onclick="generateKey()">Generate Key</button>
+    <p id="keyDisplay"></p>
 
-  <script>
-    function generateRandomKey() {
-      return Math.random().toString(36).substr(2, 10);
-    }
+    <script>
+        function generateKey() {
+            var key = '';
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+            for (var i = 0; i < 10; i++) {
+                key += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            document.getElementById("keyDisplay").innerText = key;
 
-    document.getElementById("generateButton").addEventListener("click", function() {
-      const randomKey = generateRandomKey();
-      document.getElementById("generatedKey").innerText = randomKey;
+            // Sync code with Discord bot
+            var botClientId = '1273696056630050890';
+            var keyToSync = key;
 
-      // Syncing code with Discord bot
-      const discordBotClientID = "1273696056630050890";
-      const redeemCommand = `!redeem "${randomKey}"`;
-
-      console.log(`Sync this key with Discord Bot: ${discordBotClientID} using command: ${redeemCommand}`);
-    });
-  </script>
+            // You can implement the syncing logic here
+            // For security reasons, it's recommended to handle this server-side
+            fetch(`YOUR_SERVER_ENDPOINT?key=${keyToSync}&clientId=${botClientId}`, {
+                method: 'POST'
+            })
+            .then(response => {
+                console.log(response);
+            })
+        }
+    </script>
 </body>
 </html>
