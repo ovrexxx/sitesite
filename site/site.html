@@ -1,64 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Letter Generator</title>
-    <style>
-        body {
-            background-color: black;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #333;
-            color: white;
-            border: none;
-            cursor: pointer;
-            outline: none;
-        }
-
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        #letters {
-            margin-top: 20px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Key System Website</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+  </style>
 </head>
-
 <body>
-    <h1>Generate your key below</h1>
-    <button onclick="generateRandomLetters()" id="generateButton">Generate</button>
-    <div id="letters"></div>
+  <h1>Key System Website</h1>
+  <p>Click the button below to generate a 10-letter random key for Discord:</p>
+  <p id="generatedKey"></p>
+  <button id="generateButton">Generate Key</button>
 
-    <script>
-        let generated = false;
+  <script>
+    function generateRandomKey() {
+      return Math.random().toString(36).substr(2, 10);
+    }
 
-        function generateRandomLetters() {
-            if (!generated) {
-                const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                const randomLetters = Array.from({ length: 10 }, () =>
-                    letters.charAt(Math.floor(Math.random() * letters.length))
-                ).join(' ');
-                
-                const lettersDiv = document.getElementById('letters');
-                lettersDiv.innerText = randomLetters;
+    document.getElementById("generateButton").addEventListener("click", function() {
+      const randomKey = generateRandomKey();
+      document.getElementById("generatedKey").innerText = randomKey;
 
-                document.getElementById('generateButton').disabled = true;
-                generated = true;
-            }
-        }
-    </script>
+      // Syncing code with Discord bot
+      const discordBotClientID = "1273696056630050890";
+      const redeemCommand = `!redeem "${randomKey}"`;
+
+      console.log(`Sync this key with Discord Bot: ${discordBotClientID} using command: ${redeemCommand}`);
+    });
+  </script>
 </body>
-
 </html>
